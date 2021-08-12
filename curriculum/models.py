@@ -27,7 +27,7 @@ def save_subject_image(instance, filename):
 
     # fayl nominini olish
     if instance.subject_id:
-        filename = 'Subject_Pictures/{}{}'.format(instance.subject_id, ext)
+        filename = 'Subject_Pictures/{}.{}'.format(instance.subject_id, ext)
     return os.path.join(upload_to, filename)
 
 # fan modeli
