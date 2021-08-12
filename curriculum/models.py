@@ -8,13 +8,13 @@ from django.urls import reverse
 
 # bu sinf modeli
 class Standard(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(null=True, blank=True)
     desciption = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
         return self.name
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
@@ -23,7 +23,7 @@ class Standard(models.Model):
 # fan rasmini saqlovchi funksiya
 def save_subject_image(instance, filename):
     upload_to = 'Images/'
-    ext = filename.split['.'][-1]  # fan.jpg -> ['fan', 'jpg']
+    ext = filename.split('.')[-1]  # fan.jpg -> ['fan', 'jpg']
 
     # fayl nominini olish
     if instance.subject_id:
