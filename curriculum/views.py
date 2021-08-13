@@ -1,6 +1,10 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import (ListView, DetailView)
+from django.urls import reverse_lazy
+from django.views.generic import (ListView, DetailView, CreateView)
 from .models import Standard, Subject, Lesson
+from .forms import LessonForm
+
 
 # Create your views here.
 class StandardListView(ListView):
@@ -27,3 +31,25 @@ class LessonDetailView(DetailView):
     context_object_name = 'lessons'
     model = Lesson
     template_name = 'curriculum/lesson_detail_view.html'
+
+# darsni yaratish
+class LessonCreateView(CreateView):
+    form_class = LessonForm
+    context_object_name = 'subject'
+    model = Subject
+    template_name = 'curriculum/lesson_create.html'
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        standard = self.object.standard
+        return reverse_lazy('curriculum:lesson_list', 
+                kwargs={'standard': standard.slug, 'slug':self.object.slug})
+    
+    def form_valid(self, form, *args, **kwargs):
+        self.object = self.get_object()
+        fm = form.save(commit=False)
+        fm.created_by = self.request.user
+        fm.Standard = self.object.standard
+        fm.subject = self.object
+        fm.save()
+        return HttpResponseRedirect(self.get_success_url())

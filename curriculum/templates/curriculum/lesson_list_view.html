@@ -16,6 +16,8 @@
    </div>
 </div>
 {% endfor %}
-
+<a href="{% url 'curriculum:lesson_create' standard=subjects.standard.slug slug=subjects.slug %}">
+      <button type="button" class="btn btn-info"><span>Yangi dars qo'shish</span></button>
+    </a>
 </div>
 {% endblock content %}
