@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container'>
+{% for lesson in subjects.lessons.all %}
+
+<div class="card">
+  <h5 class="card-header">{{lesson.position}} - dars</h5>
+  <div class="card-body">
+    <h5 class="card-title">{{lesson.name}}</h5>
+    <p class="card-text">Darsni qunt bilan o'zlashtiring.</p>
+    <a href="{% url 'curriculum:lesson_detail' slug=lesson.slug subject=subjects.slug standard=lesson.Standard.slug %}">
+      <button type="button" class="btn btn-primary"><span>Darsga o'tish</span></button>
+    </a>
+   </div>
+</div>
+{% endfor %}
+
+</div>
+{% endblock content %}

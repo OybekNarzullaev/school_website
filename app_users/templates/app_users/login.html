@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+<h1 class='container' align='center'>Siz tizimga kirgansiz</h1>
+{% else %}
 <form method="post" class="container">
     {% csrf_token %}
     <label class="form-label" for="username">Foydalanuvchi nomi</label>
@@ -13,4 +16,5 @@
     <input type="submit" value="login" class="btn btn-primary btn-block">
 </form>
 
+{% endif %}
 {% endblock %}

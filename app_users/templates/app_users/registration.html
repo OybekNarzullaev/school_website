@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+<h1 class='container' align='center'>Siz tizimga kirgansiz</h1>
+{% else %}
 {% if registered %}
 <h1>Ro'yhatdan o'tganingiz uchun raxmat!</h1>
 {% else %}
@@ -13,6 +16,6 @@
     <br>
     <button type="submit" value="register" class="btn btn-primary btn-block">Ro'yhatdan o'tish</button>
 </form>
-
+{% endif %}
 {% endif %}
 {% endblock %}

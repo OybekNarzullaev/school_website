@@ -18,7 +18,7 @@ img{
                     <div class="card-body">
                         <h5 class="card-title">{{subject.name}}</h5>
                         <p class="card-text">{{subject.description}}</p>
-                        <a href="#" class="btn btn-primary">Darslarga o'tish</a>
+                        <a href="{% url 'curriculum:lesson_list' slug=subject.slug standard=standards.slug %}" class="btn btn-primary">Darslarga o'tish</a>
                     </div>
                 </div>
             </div>
