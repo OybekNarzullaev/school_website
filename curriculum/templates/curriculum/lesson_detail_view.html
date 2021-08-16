@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<h1>Joylangan vaqti: {{lessons.created_at}}</h1>
-<h1>Joylagan foydalanuvchi: {{lessons.created_by}}</h1>
+<h1>Dars nomi: {{lessons.name}}</h1>
+<p>Joylangan vaqti: {{lessons.created_at}}</p>
+<p>Joylagan foydalanuvchi: {{lessons.created_by}}</p>
+<a href="{% url 'curriculum:lesson_update' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-warning btn-lg mr-4 btn-block">Darsni yangilash</a>
 
+<a href="{% url 'curriculum:lesson_delete' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-danger btn-lg mr-4 btn-block">Darsni o'chirish</a>
 {% endblock content %}

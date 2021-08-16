@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post">
+{% csrf_token %}
+{{form.as_p}}
+
+<button type="submit" class="btn btn-warning btn-lg">Yangilash</button>
+<a href="{% url 'curriculum:lesson_detail' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-danger btn-lg">Bekor qilish</a>
+</form>
+
+{% endblock content %}

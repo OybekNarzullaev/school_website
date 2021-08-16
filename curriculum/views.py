@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import (ListView, DetailView, CreateView)
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from .models import Standard, Subject, Lesson
 from .forms import LessonForm
 
@@ -53,3 +53,24 @@ class LessonCreateView(CreateView):
         fm.subject = self.object
         fm.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+# darsni yangilash
+class LessonUpdateView(UpdateView):
+    fields = ["name", "position", "video", "ppt", "Notes"]
+    model = Lesson
+    template_name = "curriculum/lesson_update.html"
+    context_object_name = 'lessons'
+
+
+# darsni o'chirish
+class LessonDeleteView(DeleteView):
+    model = Lesson
+    context_object_name = 'lessons'
+    template_name = "curriculum/lesson_delete.html"
+
+    def get_success_url(self):
+        print(self.object)
+        standard = self.object.Standard
+        subject = self.object.subject
+        return reverse_lazy('curriculum:lesson_list', kwargs={'standard': standard.slug, 'slug':subject.slug})

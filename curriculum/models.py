@@ -69,7 +69,7 @@ class Lesson(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='lessons')
 
     name = models.CharField(max_length=250)
-    position = models.PositiveSmallIntegerField(verbose_name="Chapter no")
+    position = models.PositiveSmallIntegerField(verbose_name="Dars tartibi", unique=True)
     slug = models.SlugField(null=True, blank=True)
     
     video = models.FileField(upload_to=save_lesson_files, verbose_name='Video', blank=True, null=True)
@@ -89,5 +89,4 @@ class Lesson(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse("curriculum.lesson_list", kwargs={"slug": self.slug, 'standard':self.Standard.slug})
-    
+        return reverse('curriculum:lesson_list', kwargs={'slug': self.subject.slug, 'standard': self.Standard.slug})

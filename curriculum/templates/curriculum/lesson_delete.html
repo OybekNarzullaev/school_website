@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Siz ushbu {{lessons.name}} darsini o'chirmoqchimisiz?</h3>
+
+<form method='post'>
+{% csrf_token %}
+
+<button type="submit" class="btn btn-danger btn-lg">Ha, o'chirilsin</button>
+<a href="{% url 'curriculum:lesson_detail' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-warning btn-lg">Bekor qilish</a>
+</form>
+</form>
+
+{% endblock content %}
