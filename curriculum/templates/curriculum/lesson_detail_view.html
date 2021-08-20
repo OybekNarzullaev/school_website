@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container justify-content-center">
 
 <h1>Dars nomi: {{lessons.name}}</h1>
 <p>Joylangan vaqti: {{lessons.created_at}}</p>
@@ -24,16 +25,19 @@
 <p>{{comment.body}}</p>
 {% for reply in comment.replies.all %}
 <h5>{{reply.author}}<small><i>Post vaqti {{reply.date_added}}</i></small></h5>
-<p>{{reply.reply_body}}</p>
-{% endfor %}
+<p >{{reply.reply_body}}</p>
+{%endfor %}
 
 <form method="post">
     <input type="hidden" name="comment.id" value="{{comment.id}}">
     <input type="hidden" name="comment.comm_name" value="{{comment.comm_name}}">
-    {% csrf_token %}
-    {{form2.as_p}}
+    <div class="form-group">
+        {% csrf_token %}
+        <p>{{form2.as_p}}</p>
+    </div>
     <input type="submit" name="form2" value="Javob qo'shish" class="btn btn-warning btn-sm">
 </form>
 {% endfor %}
 
+</div>
 {% endblock content %}

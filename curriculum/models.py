@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import ForeignKey
 from django.db.models.deletion import CASCADE
 from django.template.defaultfilters import slugify
 import os
@@ -94,31 +93,29 @@ class Lesson(models.Model):
         return reverse('curriculum:lesson_list', kwargs={'slug': self.subject.slug, 'standard': self.Standard.slug})
 
 
-# izoh modeli
 class Comment(models.Model):
-    lesson_name = models.ForeignKey(Lesson,
-        null=True, on_delete=models.CASCADE, related_name="comments")
+    lesson_name = models.ForeignKey(Lesson,null=True, on_delete=models.CASCADE,related_name='comments')
     comm_name = models.CharField(max_length=100, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # reply = models.ForeignKey("Comment", null=True, blank=True, on_delete=models.CASCADE,related_name='replies')
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     body = models.TextField(max_length=500)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        self.comm_name = slugify("comment by" + '-' + str(self.author) + str(self.date_added))
+        self.comm_name = slugify("comment by" + "-" + str(self.author) + str(self.date_added))
         super().save(*args, **kwargs)
 
-    
     def __str__(self):
         return self.comm_name
-    
+
     class Meta:
         ordering = ['-date_added']
 
 
 class Reply(models.Model):
-    comment_name = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    comment_name = models.ForeignKey(Comment, on_delete=models.CASCADE,related_name='replies')
     reply_body = models.TextField(max_length=500)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

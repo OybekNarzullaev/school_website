@@ -32,6 +32,6 @@ class ReplyForm(forms.ModelForm):
 
         widgets = {
             'reply-body':forms.Textarea(
-                attrs = {'class':'form-controll', 'rows': 2, 'cols': 10, 'pleaceholder':"Javob yozing"}
+                attrs = {'class':'form-controll', 'rows': 4, 'cols': 50, 'pleaceholder':"Javob yozing"}
             )
         }

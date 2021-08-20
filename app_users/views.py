@@ -4,12 +4,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from .models import New
 
 mess = ''
 
 # Create your views here.
 def index(request):
-    return render(request, 'base.html', {'mess': mess})
+    news = New.objects.all()
+    return render(request, 'app_users/index.html', {'mess': mess, 'news': news})
 
 
 def register(request):
